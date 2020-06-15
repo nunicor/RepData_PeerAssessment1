@@ -1,0 +1,54 @@
+---
+title: "Reproducible_Research_Proj1"
+author: "me"
+date: "15/06/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## 1. Code for Reading and Checking Data
+``` {r read data, echo= TRUE}
+data <-read.csv("activity.csv", header=TRUE, sep=",")
+str(data)
+head(data)
+```
+
+## 2. Creating Histogram of Total Number of Steps Taken Each Day
+## Calculate Daily Steps by Date
+```{r steps by date, echo= TRUE}
+dailysteps <- aggregate(steps~date, data, sum, na.rm=TRUE)
+```
+
+## Plot Daily Steps via Histogram
+```{r histogram, echo= TRUE}
+hist(dailysteps$steps, xlab="Total Daily Steps", main= "Histogram of Total Daily Step Count",col=4)
+```
+
+## 3. Mean and Median Number of Steps Taken Each Day
+```{r mean median, echo=TRUE}
+mean(dailysteps$steps)
+median(dailysteps$steps)
+```
