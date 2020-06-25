@@ -29,14 +29,14 @@ plot(pressure)
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
-## 1. Code for Reading and Checking Data
+## Read and Check Data
 ``` {r read data, echo= TRUE}
 data <-read.csv("activity.csv", header=TRUE, sep=",")
 str(data)
 head(data)
 ```
 
-## 2. Creating Histogram of Total Number of Steps Taken Each Day
+
 ## Calculate Daily Steps by Date
 ```{r steps by date, echo= TRUE}
 dailysteps <- aggregate(steps~date, data, sum, na.rm=TRUE)
@@ -46,32 +46,4 @@ dailysteps <- aggregate(steps~date, data, sum, na.rm=TRUE)
 ```{r histogram, echo= TRUE}
 hist(dailysteps$steps, xlab="Total Daily Steps", main= "Histogram of Total Daily Step Count",col=4)
 ```
-
-## 3. Mean and Median Number of Steps Taken Each Day
-```{r mean median, echo=TRUE}
-mean(dailysteps$steps)
-median(dailysteps$steps)
-```
-
-## 4. Time Series Plot of the Average Number of Steps Taken
-``` {r time series plot, echo=TRUE}
-dailymeansteps <- aggregate(steps~interval,data,mean)
-plot(dailymeansteps$interval,dailymeansteps$steps, type="l", xlab="Interval", ylab="Average Steps", main="Average Steps by Interval", col=4, lwd=2)
-```
-
-## 5. 5-Minute Interval Containing Maximum Number of Steps
-```{r max, echo=TRUE}
-maxrow <- which.max(dailymeansteps$steps)
-dailymeansteps[maxrow,]
-```
-
-
-## 6. Code for Imputing Missing Data
-```{r na data}
-sum(is.na(data)) #number of rows missing data
-```
-
-## Fill in Missing Values
-data1 <- data[!is.na(data$steps),]
-
 
